@@ -1,0 +1,85 @@
+.Hero_wrap{
+    position: relative;
+   width: 100vw;
+    height: 100vh;
+    font-family: 'Google Sans Code';
+    font-weight: 40;
+    font-size: 13px;
+   color: white;
+
+}
+.iman {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    display: block;
+     
+}
+.header{
+  position: absolute;
+  top: 2rem;
+  width: 100%;
+  padding: 30px 200px;
+  display: flex;
+  flex-wrap: wrap;
+  
+  }
+  #Logo{
+    font-size:3rem;
+    font-family: 'Karantina';
+    margin-top: -1.6rem;
+  }
+    .headermenu ul{
+list-style: none;
+display: flex;
+gap: 3.4rem;
+flex-wrap: wrap;
+ margin-left: 20vw;
+ text-decoration: none;
+    }
+  .headermenu a{
+ color: white;
+ text-decoration: none;
+  }
+  .headermenu a:hover{
+ color: grey
+  }
+  .iconsContainer {
+    margin-left: 15vw;
+  display: flex;
+  
+  
+  height: 40px;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 10px;
+}
+
+.iconitem {
+  outline: 0 !important;
+  border: 0 !important;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: all ease-in-out 0.3s;
+  cursor: pointer;
+}
+
+.iconitem:hover {
+  transform: translateY(-3px);
+}
+
+.icon {
+  font-size: 20px;
+}
+.discoverdiv{
+  width: 30vw;
+  
+
+}

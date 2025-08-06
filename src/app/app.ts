@@ -1,9 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-
+import { FaceSection } from './face-section/face-section';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet,FaceSection],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
