@@ -1,0 +1,242 @@
+<!-- src/app/checkout/checkout.component.html -->
+<app-headerup></app-headerup>
+
+<div class="checkout-page full-bg">
+  <!-- LEFT: forms -->
+  <section class="left">
+
+    <div class="express">
+      <h3>Express checkout</h3>
+      <div class="express-row">
+        <button class="express-btn paypal" type="button">PayPal</button>
+        <button class="express-btn gpay" type="button">G Pay</button>
+      </div>
+      <div class="divider"><span>OR</span></div>
+    </div>
+
+    <!-- ✅ Top-level form group -->
+    <form [formGroup]="form" class="forms" (ngSubmit)="0">
+      
+      <!-- CONTACT -->
+      <div class="card" formGroupName="contact">
+        <h4>Contact</h4>
+
+        <div class="form-row">
+          <label>Email</label>
+          <input type="email" placeholder="you@example.com" formControlName="email" />
+          <div class="err" *ngIf="form.get('contact.email')?.touched && form.get('contact.email')?.invalid">
+            Valid email is required.
+          </div>
+        </div>
+
+        <label class="check">
+          <input type="checkbox" formControlName="news" />
+          <span>Email me with news and offers</span>
+        </label>
+      </div>
+
+      <!-- DELIVERY -->
+      <div class="card" formGroupName="delivery">
+        <h4>Delivery</h4>
+
+        <div class="form-row">
+          <label>Country/Region</label>
+          <select formControlName="country">
+            <option>United States</option>
+            <option>United Kingdom</option>
+            <option>Switzerland</option>
+            <option>Germany</option>
+            <option>France</option>
+            <option>Egypt</option>
+          </select>
+          <div class="err" *ngIf="form.get('delivery.country')?.touched && form.get('delivery.country')?.invalid">
+            Country is required.
+          </div>
+        </div>
+
+        <div class="row-2">
+          <div class="form-row">
+            <label>First name</label>
+            <input type="text" formControlName="firstName" />
+            <div class="err" *ngIf="form.get('delivery.firstName')?.touched && form.get('delivery.firstName')?.invalid">
+              First name is required.
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label>Last name</label>
+            <input type="text" formControlName="lastName" />
+            <div class="err" *ngIf="form.get('delivery.lastName')?.touched && form.get('delivery.lastName')?.invalid">
+              Last name is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label>Address</label>
+          <input type="text" placeholder="Street and number" formControlName="address" />
+          <div class="err" *ngIf="form.get('delivery.address')?.touched && form.get('delivery.address')?.invalid">
+            Address is required.
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label>Apartment, suite, etc. (optional)</label>
+          <input type="text" formControlName="apartment" />
+        </div>
+
+        <div class="row-3">
+          <div class="form-row">
+            <label>Postal code</label>
+            <input type="text" formControlName="postal" />
+            <div class="err" *ngIf="form.get('delivery.postal')?.touched && form.get('delivery.postal')?.invalid">
+              Postal code is required.
+            </div>
+          </div>
+          <div class="form-row">
+            <label>City</label>
+            <input type="text" formControlName="city" />
+            <div class="err" *ngIf="form.get('delivery.city')?.touched && form.get('delivery.city')?.invalid">
+              City is required.
+            </div>
+          </div>
+          <div class="form-row">
+            <label>Phone (optional)</label>
+            <input type="tel" formControlName="phone" />
+          </div>
+        </div>
+      </div>
+
+      <!-- PAYMENT -->
+      <div class="card" formGroupName="payment">
+        <h4>Payment</h4>
+        <p class="muted">All transactions are secure and encrypted.</p>
+
+        <div class="pay-methods">
+          <label class="radio">
+            <input
+              type="radio"
+              value="card"
+              formControlName="method"
+              (change)="onPaymentMethodChange('card')"
+            />
+            <span>Credit card</span>
+          </label>
+
+          <label class="radio">
+            <input
+              type="radio"
+              value="paypal"
+              formControlName="method"
+              (change)="onPaymentMethodChange('paypal')"
+            />
+            <span>PayPal</span>
+          </label>
+        </div>
+
+        <!-- Card fields shown only when method = card -->
+        <div class="card-grid" *ngIf="needsCard">
+          <div class="form-row">
+            <label>Card number</label>
+            <input type="text" placeholder="•••• •••• •••• ••••" maxlength="19" formControlName="cardNumber" />
+            <div class="err" *ngIf="form.get('payment.cardNumber')?.touched && form.get('payment.cardNumber')?.invalid">
+              Enter a valid 16-digit card number.
+            </div>
+          </div>
+
+          <div class="row-3">
+            <div class="form-row">
+              <label>Expiration date (MM / YY)</label>
+              <input type="text" placeholder="MM/YY" maxlength="5" formControlName="cardExp" />
+              <div class="err" *ngIf="form.get('payment.cardExp')?.touched && form.get('payment.cardExp')?.invalid">
+                Format must be MM/YY.
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label>Security code</label>
+              <input type="text" placeholder="CVV" maxlength="3" formControlName="cardCvv" />
+              <div class="err" *ngIf="form.get('payment.cardCvv')?.touched && form.get('payment.cardCvv')?.invalid">
+                Must be 3 digits.
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label>Name on card</label>
+              <input type="text" formControlName="cardName" />
+              <div class="err" *ngIf="form.get('payment.cardName')?.touched && form.get('payment.cardName')?.invalid">
+                Name on card is required.
+              </div>
+            </div>
+          </div>
+
+          <label class="check">
+            <input type="checkbox" formControlName="billingSame" />
+            <span>Use shipping address as billing address</span>
+          </label>
+        </div>
+      </div>
+    </form>
+
+    <!-- PAY BUTTON -->
+    <div class="place" *ngIf="items$ | async as items">
+      <button class="pay" 
+              [disabled]="form.invalid || placing" 
+              (click)="placeOrder(items)">
+        {{ placing ? 'Placing…' : 'Pay now' }}
+      </button>
+      <p class="tos">
+        By continuing, you agree to our Terms and acknowledge our Privacy Policy.
+      </p>
+    </div>
+
+    <!-- Success -->
+    <div class="success" *ngIf="placed">
+      <h3>Thank you! 🎉</h3>
+      <p>Your order <strong>{{ orderNumber }}</strong> has been placed.</p>
+      <button class="back" (click)="backToShop()">Back to shop</button>
+    </div>
+  </section>
+
+  <!-- RIGHT: summary -->
+  <aside class="right">
+    <div class="summary">
+      <div class="line-items" *ngIf="(items$ | async) as items; else emptyCart">
+        <div class="item" *ngFor="let it of items">
+          <div class="thumb">
+            <img [src]="it.imageUrl || 'assets/placeholder.png'" [alt]="it.name" />
+            <span class="qty">{{ it.quantity }}</span>
+          </div>
+          <div class="meta">
+            <div class="name">{{ it.name }}</div>
+            <div class="sub" *ngIf="it.sizeName">Size: {{ it.sizeName }}</div>
+          </div>
+          <div class="price">{{ it.price | currency:'USD' }}</div>
+        </div>
+
+        <div class="coupon">
+          <input type="text" placeholder="Discount code or gift card" />
+          <button type="button" disabled>Apply</button>
+        </div>
+
+        <div class="totals">
+          <div class="row">
+            <span>Subtotal</span>
+            <span>{{ (subtotal$ | async) | currency:'USD' }}</span>
+          </div>
+          <div class="row muted">
+            <span>Shipping</span>
+            <span>Enter shipping address</span>
+          </div>
+          <div class="row total">
+            <span>Total</span>
+            <span class="money">USD {{ (subtotal$ | async) | currency:'USD':'symbol':'1.0-2' }}</span>
+          </div>
+        </div>
+      </div>
+      <ng-template #emptyCart>
+        <p class="muted">Your cart is empty.</p>
+      </ng-template>
+    </div>
+  </aside>
+</div>

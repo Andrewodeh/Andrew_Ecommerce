@@ -1,0 +1,248 @@
+/* Page wrapper fixes header overlap (your header is absolute) */
+.product-page {
+  padding-top: 96px; /* adjust if your header is taller/shorter */
+  background: #f9f9fb;
+  min-height: 100vh;
+}
+
+/* Card-like section */
+.product-detail {
+  max-width: 1100px;
+  margin: 0 auto 48px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr; /* image slightly larger than info */
+  gap: 2.5rem;
+  padding: 24px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(10,10,10,0.06);
+}
+
+/* ===== Gallery ===== */
+.gallery .main {
+  border-radius: 14px;
+  overflow: hidden;
+  background: #f3f4f6;
+}
+.gallery .main img { width: 100%; display: block; }
+.noimg { width: 100%; height: 420px; background: #efefef; border-radius: 12px; }
+
+.thumbs {
+  margin-top: .85rem;
+  display: flex; gap: .5rem; flex-wrap: wrap;
+}
+.thumbs button {
+  border: 1px solid #e3e3e3; border-radius: 10px; padding: 2px; cursor: pointer; background: #fff;
+  transition: transform .15s ease, border-color .15s ease;
+}
+.thumbs button:hover { transform: translateY(-1px); border-color: #bbb; }
+.thumbs button.active { border-color: #111; }
+.thumbs img { width: 68px; height: 68px; object-fit: cover; border-radius: 8px; }
+
+/* ===== Info ===== */
+.info { display: flex; flex-direction: column; gap: 12px; }
+
+.brandline { display: flex; align-items: center; gap: .5rem; color: #6b7280; }
+.pill { background: #f1f5f9; color: #0f172a; border-radius: 999px; padding: 4px 10px; font-size: .75rem; }
+.dot { opacity: .6; }
+.sku { font-size: .85rem; }
+
+.title { margin: 0; font-size: 2rem; line-height: 1.2; font-family: 'Google Sans Code'; }
+.price { font-size: 1.5rem; margin: .25rem 0 1rem; }
+
+.section { margin: .75rem 0; }
+.section-label { display: block; font-size: .9rem; color: #6b7280; margin-bottom: .35rem; }
+
+.size-list { display: flex; gap: .5rem; flex-wrap: wrap; }
+.size-list button {
+  padding: .45rem .9rem; border-radius: 999px; border: 1px solid #d1d5db; background: #fff; cursor: pointer;
+  transition: border-color .15s ease, transform .15s ease, background .15s ease;
+}
+.size-list button:hover { transform: translateY(-1px); border-color: #9ca3af; }
+.size-list button.selected { border-color: #111; background: #f4f4f5; font-weight: 600; }
+
+.stock { display: flex; align-items: center; gap: .5rem; }
+.chip { padding: 4px 8px; border-radius: 999px; font-size: .8rem; }
+.chip-success { background: #e7f8ee; color: #166534; }
+.chip-danger { background: #fde7e7; color: #991b1b; }
+.chip-muted { background: #f3f4f6; color: #374151; }
+.muted { color: #6b7280; }
+
+.qty { display: inline-flex; align-items: center; gap: .5rem; }
+.qty button {
+  width: 36px; height: 36px; border-radius: 10px; border: 1px solid #d1d5db; background: #fff; cursor: pointer;
+  transition: transform .12s ease, border-color .12s ease;
+}
+.qty button:hover { transform: translateY(-1px); border-color: #9ca3af; }
+.qty input {
+  width: 48px; text-align: center; border: 1px solid #d1d5db; border-radius: 8px; padding: .25rem;
+  background: #fff;
+}
+
+/* Delivery line */
+.delivery {
+  display: flex; align-items: center; gap: .5rem;
+  margin-top: .25rem; color: #374151; font-size: .95rem;
+}
+.delivery svg { width: 18px; height: 18px; fill: currentColor; opacity: .85; }
+
+/* CTA row */
+.cta-row { margin-top: .75rem; }
+
+/* ===== Fancy Buy Button (adapted from your snippet) ===== */
+.button.buy-button {
+  --width: 170px;
+  --height: 44px;
+  --tooltip-height: 32px;
+  --tooltip-width: 140px;
+  --gap-between-tooltip-to-button: 16px;
+  --button-color: #111;         /* primary bg */
+  --tooltip-color: #fff;
+  width: var(--width);
+  height: var(--height);
+  background: var(--button-color);
+  position: relative;
+  text-align: center;
+  border-radius: 10px;
+  font-family: "Arial";
+  transition: background 0.3s, transform .08s ease;
+  border: none;
+  cursor: pointer;
+}
+
+/* Tooltip */
+.button.buy-button::before {
+  position: absolute;
+  content: attr(data-tooltip);
+  width: var(--tooltip-width);
+  height: var(--tooltip-height);
+  background-color: #333;
+  font-size: 0.85rem;
+  color: #fff;
+  border-radius: .35em;
+  line-height: var(--tooltip-height);
+  bottom: calc(var(--height) + var(--gap-between-tooltip-to-button) + 10px);
+  left: calc(50% - var(--tooltip-width) / 2);
+}
+.button.buy-button::after {
+  position: absolute;
+  content: '';
+  width: 0; height: 0;
+  border: 10px solid transparent;
+  border-top-color: #333;
+  left: calc(50% - 10px);
+  bottom: calc(100% + var(--gap-between-tooltip-to-button) - 10px);
+}
+.button.buy-button::after, .button.buy-button::before {
+  opacity: 0; visibility: hidden; transition: all 0.35s;
+}
+
+/* Inner content */
+.button-wrapper, .text, .icon {
+  overflow: hidden; position: absolute; width: 100%; height: 100%; left: 0; color: #fff;
+}
+.text { display: flex; align-items: center; justify-content: center; top: 0; transition: top 0.35s; }
+.icon { display: flex; align-items: center; justify-content: center; top: 100%; transition: top 0.35s; }
+.icon svg { width: 24px; height: 24px; }
+
+/* Hover animation */
+.button.buy-button:hover { background: #0c0c0c; }
+.button.buy-button:hover .text { top: -100%; }
+.button.buy-button:hover .icon { top: 0; }
+.button.buy-button:hover::before,
+.button.buy-button:hover::after { opacity: 1; visibility: visible; }
+.button.buy-button:hover::after {
+  bottom: calc(var(--height) + var(--gap-between-tooltip-to-button) - 18px);
+}
+.button.buy-button:hover::before {
+  bottom: calc(var(--height) + var(--gap-between-tooltip-to-button));
+}
+
+/* Active */
+.button.buy-button:active { transform: translateY(1px); }
+
+/* Disabled state */
+.button.buy-button:disabled {
+  cursor: not-allowed;
+  background: #bdbdbd;
+}
+.button.buy-button:disabled .text { opacity: .9; }
+.button.buy-button:disabled:hover .text { top: 0; }
+.button.buy-button:disabled:hover .icon { top: 100%; }
+.button.buy-button:disabled:hover::before,
+.button.buy-button:disabled:hover::after { opacity: 0; visibility: hidden; }
+
+/* ===== Loading / error ===== */
+.loading, .error {
+  padding: 1rem; max-width: 1100px; margin: 0 auto;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 980px) {
+  .product-detail {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+}
+/* === FIX: keep the Add to Cart text fully visible & centered === */
+.button,
+.button.buy-button {
+  padding: 0;                 /* remove UA padding */
+  line-height: normal;        /* avoid tall baseline pushing text */
+  -webkit-appearance: none;   /* iOS/Safari default button resets */
+  appearance: none;
+}
+
+/* Make inner layers fill the button box exactly */
+.button .button-wrapper,
+.button .text,
+.button .icon {
+  position: absolute;
+  inset: 0;                   /* replaces top/left/width/height */
+  height: 100%;
+  width: 100%;
+}
+
+/* Center the label vertically & horizontally */
+.button .text {
+  display: flex;
+  align-items: center;        /* vertical centering */
+  justify-content: center;    /* horizontal centering */
+  top: 0;                     /* ensures it's on the visible frame */
+}
+
+/* Keep the cart icon below until hover animation brings it up */
+.button .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 100%;
+}
+
+/* Optional: if parent layout is squeezing the button line-height */
+.cta-row { line-height: 0; }  /* only affects the row, not the button contents */
+/* --- Better cart icon visuals --- */
+.icon svg {
+  width: 24px;      /* control size here */
+  height: 24px;
+  display: block;
+  /* Outline look: */
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;               /* crisp lines */
+  vector-effect: non-scaling-stroke;
+  shape-rendering: geometricPrecision;
+}
+
+/* Subtle polish on hover state (when icon slides up) */
+.button:hover .icon svg {
+  transform: translateZ(0);        /* GPU nudge */
+}
+
+
+.icon svg {
+  fill: currentColor;
+  stroke: none;
+}
+
+

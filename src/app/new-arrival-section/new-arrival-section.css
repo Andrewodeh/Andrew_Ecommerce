@@ -1,0 +1,126 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#new-arrivals {
+  padding: 60px 20px; 
+  background-color: #f9f9f9;
+}
+
+.section-header {
+  margin: 0 auto 40px;
+  padding: 0 60px; 
+}
+
+.section-header h2 {
+  font-size: 36px;
+  font-weight: bold;
+  font-family: 'Karantina', cursive;
+  letter-spacing: 2px;
+}
+
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.card {
+  position: relative;
+  flex: 1 1 calc(33.333% - 40px); /* 3 per row with gap */
+  max-width: calc(33.333% - 40px);
+  height: auto;
+  box-shadow: 0 1px 13px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  padding: 0.5em;
+  padding-bottom: 3.4em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.card:hover::after {
+  bottom: 0;
+  opacity: 1;
+}
+
+.card:active {
+  transform: scale(0.98);
+}
+
+.card::after {
+  content: "Add to Cart";
+  position: absolute;
+  left: 0;
+  bottom: -60px;
+  background: #00AC7C;
+  color: white;
+  width: 100%;
+  height: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  opacity: 0;
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 4 / 5; /* keeps proportions without hardcoding px */
+  background: #f1f1f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.title {
+  font-size: 0.9em;
+  font-weight: 400;
+  color: #000;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.price {
+  font-size: 0.9em;
+  font-family: 'Lato', sans-serif;
+  color: #000;
+  margin-top: 5px;
+  text-align: center;
+}
+
+/* Tablet (2 per row) */
+@media (max-width: 900px) {
+  .card {
+    flex: 1 1 calc(50% - 40px);
+    max-width: calc(50% - 40px);
+  }
+}
+
+/* Phone (1 per row) */
+@media (max-width: 500px) {
+  .product-grid {
+    gap: 20px;
+  }
+  .card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}

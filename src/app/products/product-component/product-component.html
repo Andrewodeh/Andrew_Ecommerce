@@ -1,0 +1,44 @@
+<app-headerup></app-headerup>
+
+<!-- Content wrapper adds safe space under the absolute header -->
+<div class="page">
+
+  <section class="new-arrivals">
+    <div class="section-header">
+
+    </div>
+
+    <div *ngIf="isLoading" class="loading">Loading new arrivals…</div>
+    <div *ngIf="!isLoading && error" class="error">{{ error }}</div>
+
+    <div class="product-grid" *ngIf="!isLoading && !error">
+      <a
+        class="card"
+        *ngFor="let p of items"
+        [routerLink]="['/products', (currentSlug || categorySlug(p.categoryId)), p.id]"
+      >
+        <div class="image">
+          <img
+            [src]="p.imageUrl || 'assets/placeholder.png'"
+            [alt]="p.name"
+            width="200"
+            height="200"
+            loading="lazy"
+          />
+        </div>
+
+        <span class="title">{{ p.name }}</span>
+
+        <span class="price">
+          <ng-container *ngIf="p.price > 0; else priceNA">
+            {{ p.price | currency:'USD' }}
+          </ng-container>
+          <ng-template #priceNA>Price on request</ng-template>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <app-footer></app-footer>
+</div>
+

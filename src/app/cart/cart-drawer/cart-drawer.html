@@ -1,0 +1,40 @@
+<div class="drawer" [class.open]="open">
+  <div class="overlay" (click)="close.emit()"></div>
+
+  <aside class="panel">
+    <header class="top">
+      <h3>Your Cart</h3>
+      <button class="close" (click)="close.emit()">×</button>
+    </header>
+
+    <section class="body">
+      <div *ngIf="(cart.items$ | async) as items; else empty">
+        <div class="row" *ngFor="let it of items">
+          <img class="thumb" [src]="it.imageUrl || 'assets/placeholder.png'" [alt]="it.name" />
+          <div class="meta">
+            <div class="name">{{ it.name }}</div>
+            <div class="sub" *ngIf="it.sizeName">Size: {{ it.sizeName }}</div>
+            <div class="price">{{ it.price | currency:'USD' }}</div>
+            <div class="qty">
+              <button (click)="dec(it.id, it.sizeId, it.quantity)">−</button>
+              <span>{{ it.quantity }}</span>
+              <button (click)="inc(it.id, it.sizeId, it.quantity)">+</button>
+              <button class="remove" (click)="remove(it.id, it.sizeId)">Remove</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #empty>
+        <p class="muted">Your cart is empty.</p>
+      </ng-template>
+    </section>
+
+    <footer class="bottom">
+      <div class="sum">
+        <span>Subtotal</span>
+        <strong>{{ (cart.subtotal$ | async) | currency:'USD' }}</strong>
+      </div>
+      <a class="checkout" routerLink="/checkout" (click)="close.emit()">Checkout</a>
+    </footer>
+  </aside>
+</div>

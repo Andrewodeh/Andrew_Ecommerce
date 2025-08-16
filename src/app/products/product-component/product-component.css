@@ -1,0 +1,156 @@
+/* Base reset */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Page wrapper: creates logical space below absolute header (no <br> needed) */
+.page {
+  /* tweak this if your header is taller/shorter */
+  --header-offset: 96px;
+  padding-top: var(--header-offset);
+  background: #f9f9f9;
+  min-height: 100vh;
+}
+
+/* Section */
+.new-arrivals {
+  padding: 32px 20px 60px; /* top reduced because .page adds the header offset */
+  background-color: #f9f9f9;
+}
+
+.section-header {
+  max-width: 1200px;
+  margin: 0 auto 24px;
+  padding: 0 12px;
+}
+
+.section-header h2 {
+  font-size: 36px;
+  font-weight: bold;
+  font-family: 'Karantina', cursive;
+  letter-spacing: 2px;
+}
+
+/* Grid */
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  max-width: 1200px;     /* a bit wider than 80% and consistent */
+  margin: 0 auto;
+  padding: 0 12px;
+}
+
+/* Card */
+.card {
+  position: relative;
+  flex: 1 1 calc(33.333% - 40px);   /* 3 per row with gap */
+  max-width: calc(33.333% - 40px);
+  height: auto;
+  box-shadow: 0 1px 13px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  padding: 0.5em;
+  padding-bottom: 3.4em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  overflow: hidden;
+  text-decoration: none;
+  border-radius: 12px;
+}
+
+/* Focus outline for keyboard users */
+.card:focus-visible {
+  outline: 3px solid #111;
+  outline-offset: 3px;
+}
+
+.card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.12); }
+.card:active { transform: scale(0.98); }
+
+/* Hover footer strip (CTA feel) */
+.card::after {
+  content: "Add to Cart";
+  position: absolute;
+  left: 0;
+  bottom: -60px;
+  background: #00AC7C;
+  color: white;
+  width: 100%;
+  height: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  opacity: 0;
+}
+.card:hover::after {
+  bottom: 0;
+  opacity: 1;
+}
+
+/* Image */
+.image {
+  width: 100%;
+  aspect-ratio: 4 / 5; /* keeps proportions without hardcoding px */
+  background: #f1f1f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Text */
+.title {
+  font-size: 0.95em;
+  font-weight: 500;
+  color: #000;
+  margin-top: 10px;
+  text-align: center;
+  line-height: 1.35;
+}
+.price {
+  font-size: 0.95em;
+  font-family: 'Lato', sans-serif;
+  color: #000;
+  margin-top: 6px;
+  text-align: center;
+}
+
+/* Loading & error */
+.loading, .error {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 12px 0;
+  color: #333;
+}
+
+/* Tablet (2 per row) */
+@media (max-width: 900px) {
+  .card {
+    flex: 1 1 calc(50% - 40px);
+    max-width: calc(50% - 40px);
+  }
+  .section-header h2 { font-size: 30px; }
+  .page { --header-offset: 88px; }
+}
+
+/* Phone (1 per row) */
+@media (max-width: 500px) {
+  .product-grid { gap: 20px; }
+  .card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+  .section-header h2 { font-size: 26px; }
+  .page { --header-offset: 80px; }
+}

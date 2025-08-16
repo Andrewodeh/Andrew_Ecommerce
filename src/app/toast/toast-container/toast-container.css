@@ -1,0 +1,95 @@
+/* Positioning */
+.toast-stack {
+  position: fixed;
+  top: 96px;              /* Header offset so toasts don't hide under it */
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+  pointer-events: none;   /* clicks go through except on toasts */
+  font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* Toast card */
+.toast {
+  pointer-events: auto;
+  min-width: 280px;
+  max-width: min(92vw, 380px);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: start;
+
+  background: #111;         /* dark theme base */
+  color: #fff;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 12px 12px 12px 10px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  animation: slideIn .25s ease, fadeOut .25s ease both;
+}
+
+.toast .left { display: flex; padding-top: 2px; }
+.toast .dot {
+  width: 10px; height: 10px; border-radius: 999px; margin-top: 3px;
+  background: #9ca3af;      /* default/info color */
+  box-shadow: 0 0 0 3px rgba(156,163,175,0.2);
+}
+.toast.success .dot { background: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,0.15); }
+.toast.error   .dot { background: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.15); }
+.toast.info    .dot { background: #9ca3af; box-shadow: 0 0 0 3px rgba(156,163,175,0.15); }
+
+.toast .content { padding-right: 6px; }
+.toast .title {
+  font-family: 'Google Sans Code', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+  font-size: .85rem;
+  letter-spacing: .3px;
+  color: #e5e7eb;
+  margin-bottom: 2px;
+}
+.toast .msg {
+  font-size: .9rem;
+  line-height: 1.35;
+  color: #f3f4f6;
+}
+
+/* Close button */
+.toast .close {
+  background: transparent;
+  border: none;
+  color: #cbd5e1;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 2px 4px;
+  transition: background .15s ease, color .15s ease, transform .06s ease;
+}
+.toast .close:hover {
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+}
+.toast .close:active { transform: translateY(1px); }
+
+/* Enter animation */
+@keyframes slideIn {
+  from { transform: translateY(-8px) translateX(8px); opacity: 0; }
+  to   { transform: translateY(0) translateX(0); opacity: 1; }
+}
+
+/* Auto fade handled inline via setTimeout => optional keyframes if you add classes */
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 1; } /* placeholder (we dismiss programmatically) */
+}
+
+/* Mobile: show lower & centered a bit */
+@media (max-width: 520px) {
+  .toast-stack {
+    top: 84px;
+    right: 8px;
+    left: 8px;
+  }
+  .toast {
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,17 @@
+<!-- Fixed stack (top-right, below your absolute header) -->
+<div class="toast-stack" *ngIf="(toasts.toasts$ | async) as list">
+  <div class="toast"
+       *ngFor="let t of list; trackBy: trackById"
+       [class.success]="t.type === 'success'"
+       [class.error]="t.type === 'error'"
+       [class.info]="t.type === 'info'">
+    <div class="left">
+      <span class="dot" aria-hidden="true"></span>
+    </div>
+    <div class="content">
+      <div class="title" *ngIf="t.title">{{ t.title }}</div>
+      <div class="msg">{{ t.message }}</div>
+    </div>
+    <button class="close" (click)="close(t.id)" aria-label="Dismiss">✕</button>
+  </div>
+</div>

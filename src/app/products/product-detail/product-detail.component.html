@@ -1,0 +1,129 @@
+<app-headerup></app-headerup>
+
+<!-- Page wrapper adds top padding so header (absolute) doesn't overlap -->
+<div class="product-page">
+
+  <section class="product-detail" *ngIf="!isLoading && !error; else busy">
+
+    <!-- Gallery -->
+    <div class="gallery">
+      <div class="main">
+        <img *ngIf="mainImage; else noimg" [src]="mainImage" alt="product image" />
+        <ng-template #noimg>
+          <div class="noimg"></div>
+        </ng-template>
+      </div>
+
+      <div class="thumbs" *ngIf="images.length > 1">
+        <button *ngFor="let img of images" type="button" (click)="setMainImage(img)"
+                [class.active]="img === mainImage">
+          <img [src]="img" alt="thumb" />
+        </button>
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="info">
+      <div class="brandline">
+        <span class="pill">New Arrival</span>
+        <span class="dot">•</span>
+        <span class="sku">ID: {{ item?.ItemID }}</span>
+      </div>
+
+      <h1 class="title">{{ item?.ItemEnName || item?.ItemArName }}</h1>
+
+      <p class="price">
+        <ng-container *ngIf="(item?.PriceLevel_Price ?? 0) > 0; else poa">
+          {{ item?.PriceLevel_Price | currency:'USD' }}
+        </ng-container>
+        <ng-template #poa>Price on request</ng-template>
+      </p>
+
+      <!-- Sizes -->
+      <div class="section" *ngIf="item?.Sizelist?.length">
+        <label class="section-label">Size</label>
+        <div class="size-list">
+          <button
+            *ngFor="let s of item?.Sizelist"
+            type="button"
+            [class.selected]="s.ID === selectedSizeId"
+            (click)="onSelectSize(s.ID, s.ItemSizeEnName || s.ItemSizeArName)">
+            {{ s.ItemSizeEnName || s.ItemSizeArName }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Stock -->
+      <div class="section">
+        <label class="section-label">Availability</label>
+        <div class="stock">
+          <ng-container *ngIf="stockLoading">
+            <span class="chip chip-muted">Checking stock…</span>
+          </ng-container>
+          <ng-container *ngIf="!stockLoading">
+            <ng-container *ngIf="stockStatus === true; else notAvail">
+              <span class="chip chip-success">In stock</span>
+   
+            </ng-container>
+            <ng-template #notAvail>
+              <span *ngIf="stockStatus === false" class="chip chip-danger">Out of stock</span>
+              <span *ngIf="stockStatus === null" class="chip chip-muted">Stock unavailable</span>
+            </ng-template>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Quantity -->
+      <div class="section">
+        <label class="section-label">Quantity</label>
+        <div class="qty">
+          <button type="button" (click)="dec()">−</button>
+          <input type="number" [value]="quantity" readonly />
+          <button type="button" (click)="inc()">+</button>
+
+        </div>
+      </div>
+
+      <!-- Delivery -->
+      <div class="delivery">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 7h11v7h2.5l2-3H21V7h-3l-2-3H3v3zm0 9h1a3 3 0 1 0 6 0h4a3 3 0 1 0 6 0h1v-2H3v2zm4 1a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm11 0a1 1 0 1 1 .001-2.001A1 1 0 0 1 18 17z"/>
+        </svg>
+        <span>Delivered in <strong>5–7 business days</strong>. Free returns within 30 days.</span>
+      </div>
+
+      <!-- Buy / Add to Cart -->
+      <div class="cta-row">
+        <!-- Fancy button with tooltip and disabled state -->
+        <button
+          class="button buy-button"
+          type="button"
+          [attr.data-tooltip]="priceTooltip"
+          (click)="addToCart()"
+          [disabled]="!canAddToCart()"
+        >
+          <div class="button-wrapper">
+            <div class="text">{{ canAddToCart() ? 'Add to Cart' : 'Unavailable' }}</div>
+           <!-- inside .icon ... -->
+<span class="icon" aria-hidden="true">
+  <!-- Clean outline cart (24x24, no fill, scales nicely) -->
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false">
+    <path d="M3 3h2l2.2 10.4a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L21 7H6" />
+    <circle cx="9.5" cy="19" r="1.5" />
+    <circle cx="17.5" cy="19" r="1.5" />
+  </svg>
+</span>
+
+          </div>
+        </button>
+      </div>
+    </div>
+
+  </section>
+
+  <ng-template #busy>
+    <div *ngIf="isLoading" class="loading">Loading product…</div>
+    <div *ngIf="!isLoading && error" class="error">{{ error }}</div>
+  </ng-template>
+<app-footer></app-footer>
+</div>
