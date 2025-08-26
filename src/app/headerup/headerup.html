@@ -2,7 +2,7 @@
   <!-- Mobile menu toggle (CSS-only) -->
   <input id="nav-toggle" type="checkbox" class="nav-toggle" aria-label="Toggle navigation" />
 
-  <p routerLink="/" id="Logo">ANDREW</p>
+  <p routerLink="/" id="Logo">HOPE</p>
 
   <!-- Burger for mobile -->
   <label for="nav-toggle" class="menu-btn" aria-label="Open menu">
@@ -20,7 +20,7 @@
     </ul>
   </nav>
 
-  <!-- Icons -->
+  <!-- Icons + Search -->
   <div class="iconsContainer">
     <button routerLink="/" class="iconitem" aria-label="Home">
       <svg class="icon" stroke="currentColor" fill="currentColor" stroke-width="0"
@@ -31,23 +31,14 @@
       </svg>
     </button>
 
-    <button class="iconitem" aria-label="Search">
+    <!-- Search toggle -->
+    <button class="iconitem" aria-label="Search" (click)="toggleSearch()">
       <svg class="icon" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"
            aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round"
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
       </svg>
     </button>
-
-    <button class="iconitem" aria-label="Profile">
-      <svg class="icon" stroke="currentColor" fill="currentColor" stroke-width="0"
-           viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M12 2.5a5.5 5.5 0 0 1 3.096 10.047 9.005 9.005 0 0 1 5.9 8.181.75.75 0 1 1-1.499.044 7.5 7.5 0 0 0-14.993 0 .75.75 0 0 1-1.5-.045 9.005 9.005 0 0 1 5.9-8.18A5.5 5.5 0 0 1 12 2.5ZM8 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z">
-        </path>
-      </svg>
-    </button>
-
     <!-- Cart button with live badge -->
     <button class="iconitem cartbtn" aria-label="Cart" (click)="openCart()">
       <svg class="icon" stroke="currentColor" fill="none" stroke-width="2"
@@ -58,6 +49,37 @@
       </svg>
       <span class="badge" *ngIf="(cart.count$ | async) as c">{{ c }}</span>
     </button>
+
+    <!-- Search panel -->
+    <div class="search-panel" *ngIf="showSearch" (keydown)="onSearchKey($event)">
+      <input
+        id="hdr-search-input"
+        type="text"
+        [formControl]="search"
+        placeholder="Search products…"
+        autocomplete="off"
+      />
+      <div class="dropdown" *ngIf="search.value?.length || loading">
+        <div class="row loading" *ngIf="loading">Searching…</div>
+
+        <button
+          type="button"
+          class="row"
+          *ngFor="let s of suggestions; let i = index"
+          [class.focused]="i === focusedIndex"
+          (click)="selectSuggestion(s)"
+        >
+          <span class="name">{{ displayName(s) }}</span>
+          <span class="cat" *ngIf="s.CategoryID === 6">Men</span>
+          <span class="cat" *ngIf="s.CategoryID === 7">Women</span>
+          <span class="cat" *ngIf="s.CategoryID === 8">Kids</span>
+        </button>
+
+        <div class="row muted" *ngIf="!loading && !suggestions.length && search.value">
+          No results
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 

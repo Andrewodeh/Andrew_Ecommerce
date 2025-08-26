@@ -6,10 +6,11 @@ import { CartService } from '../../cart/cart.service';
 import { Headerup } from '../../headerup/headerup';
 import { ToastService } from '../../toast/toast.service';
 import { Footer } from '../../footer/footer';
+import { RouterModule } from '@angular/router';
 @Component({
   standalone: true,
   selector: 'app-product-detail',
-  imports: [CommonModule, NgIf, NgFor, Headerup,Footer],
+  imports: [CommonModule, NgIf, NgFor, Headerup,Footer,RouterModule],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css',
 })

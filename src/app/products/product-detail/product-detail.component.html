@@ -1,11 +1,9 @@
 <app-headerup></app-headerup>
 
-<!-- Page wrapper adds top padding so header (absolute) doesn't overlap -->
 <div class="product-page">
 
   <section class="product-detail" *ngIf="!isLoading && !error; else busy">
 
-    <!-- Gallery -->
     <div class="gallery">
       <div class="main">
         <img *ngIf="mainImage; else noimg" [src]="mainImage" alt="product image" />
@@ -106,7 +104,7 @@
             <div class="text">{{ canAddToCart() ? 'Add to Cart' : 'Unavailable' }}</div>
            <!-- inside .icon ... -->
 <span class="icon" aria-hidden="true">
-  <!-- Clean outline cart (24x24, no fill, scales nicely) -->
+
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false">
     <path d="M3 3h2l2.2 10.4a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L21 7H6" />
     <circle cx="9.5" cy="19" r="1.5" />

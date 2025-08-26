@@ -1,4 +1,4 @@
-// src/app/products/products.service.ts
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
@@ -47,7 +47,6 @@ export class ProductsService {
 
   constructor(private http: HttpClient) {}
 
-  /** Home: ALL latest (no filter) */
   getLatestItems(limit = 12): Observable<UiItem[]> {
     const url = `${this.API_BASE}/api/items/getLatestItems`;
     return this.http.get<ApiItem[]>(url).pipe(
@@ -56,7 +55,6 @@ export class ProductsService {
     );
   }
 
-  /** Category page: filter by CategoryID (6=men, 7=women, 8=kids) */
   getLatestByCategory(categoryId: number, limit = 12): Observable<UiItem[]> {
     const url = `${this.API_BASE}/api/items/getLatestItems`;
     return this.http.get<ApiItem[]>(url).pipe(
@@ -69,17 +67,13 @@ export class ProductsService {
     );
   }
 
-  /** Detail page: one item by id */
+
   getItemById(id: number | string): Observable<ApiItem> {
     const url = `${this.API_BASE}/api/items/getitembyID/${id}`;
     return this.http.get<ApiItem>(url);
   }
 
-  /**
-   * Stock check:
-   * GET /api/items/checkIfItemHasAQuantity/{itemId}/{relatedNumber}/{colorId}/{sizeId}
-   * Example you gave: /checkIfItemHasAQuantity/25/1111/undefined/undefined
-   */
+ 
   checkItemQuantity(
     itemId: number | string,
     relatedNumber: number | string,
