@@ -6,8 +6,9 @@ import { Footer } from './footer/footer';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ToastContainerComponent } from "./toast/toast-container/toast-container";
+import { inject } from "@vercel/analytics"
 
-
+inject();
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, FaceSection, NewArrivalSection, HttpClientModule, Footer, CommonModule, ToastContainerComponent],
